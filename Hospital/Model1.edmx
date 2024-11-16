@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HospitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment1">
+          <Key>
+            <PropertyRef Name="AppointmentId" />
+          </Key>
+          <Property Name="AppointmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppointemtDate" Type="varchar" MaxLength="40" />
+          <Property Name="Pid" Type="int" />
+          <Property Name="Did" Type="int" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Did" />
+          </Key>
+          <Property Name="Did" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dname" Type="varchar" MaxLength="40" />
+          <Property Name="Dspecialize" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pname" Type="varchar" MaxLength="40" />
+          <Property Name="Pemail" Type="varchar" MaxLength="40" />
+          <Property Name="Ppassword" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <Association Name="FK__Appointment__Did__48CFD27E">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="Appointment1" Type="Self.Appointment1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Did" />
+            </Principal>
+            <Dependent Role="Appointment1">
+              <PropertyRef Name="Did" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointment__Pid__47DBAE45">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="Appointment1" Type="Self.Appointment1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Pid" />
+            </Principal>
+            <Dependent Role="Appointment1">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitalModelStoreContainer">
+          <EntitySet Name="Appointment1" EntityType="Self.Appointment1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Appointment__Did__48CFD27E" Association="Self.FK__Appointment__Did__48CFD27E">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Appointment1" EntitySet="Appointment1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointment__Pid__47DBAE45" Association="Self.FK__Appointment__Pid__47DBAE45">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Appointment1" EntitySet="Appointment1" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospitalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Did" />
+          </Key>
+          <Property Name="Did" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dname" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Dspecialize" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Appointment1" Relationship="HospitalModel.FK__Appointment__Did__48CFD27E" FromRole="Doctor" ToRole="Appointment1" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Pid" />
+          </Key>
+          <Property Name="Pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pname" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Pemail" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Ppassword" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Appointment1" Relationship="HospitalModel.FK__Appointment__Pid__47DBAE45" FromRole="Patient" ToRole="Appointment1" />
+        </EntityType>
+        <EntityContainer Name="HospitalEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="Appointment1" EntityType="HospitalModel.Appointment1" />
+          <AssociationSet Name="FK__Appointment__Did__48CFD27E" Association="HospitalModel.FK__Appointment__Did__48CFD27E">
+            <End Role="Doctor" EntitySet="Doctors" />
+            <End Role="Appointment1" EntitySet="Appointment1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointment__Pid__47DBAE45" Association="HospitalModel.FK__Appointment__Pid__47DBAE45">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Appointment1" EntitySet="Appointment1" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Appointment1">
+          <Key>
+            <PropertyRef Name="AppointmentId" />
+          </Key>
+          <Property Name="AppointmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppointemtDate" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Pid" Type="Int32" />
+          <Property Name="Did" Type="Int32" />
+          <NavigationProperty Name="Doctor" Relationship="HospitalModel.FK__Appointment__Did__48CFD27E" FromRole="Appointment1" ToRole="Doctor" />
+          <NavigationProperty Name="Patient" Relationship="HospitalModel.FK__Appointment__Pid__47DBAE45" FromRole="Appointment1" ToRole="Patient" />
+        </EntityType>
+        <Association Name="FK__Appointment__Did__48CFD27E">
+          <End Type="HospitalModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+          <End Type="HospitalModel.Appointment1" Role="Appointment1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Did" />
+            </Principal>
+            <Dependent Role="Appointment1">
+              <PropertyRef Name="Did" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointment__Pid__47DBAE45">
+          <End Type="HospitalModel.Patient" Role="Patient" Multiplicity="0..1" />
+          <End Type="HospitalModel.Appointment1" Role="Appointment1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Pid" />
+            </Principal>
+            <Dependent Role="Appointment1">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HospitalModelStoreContainer" CdmEntityContainer="HospitalEntities1">
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="HospitalModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="Did" ColumnName="Did" />
+                <ScalarProperty Name="Dname" ColumnName="Dname" />
+                <ScalarProperty Name="Dspecialize" ColumnName="Dspecialize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="HospitalModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="Pname" ColumnName="Pname" />
+                <ScalarProperty Name="Pemail" ColumnName="Pemail" />
+                <ScalarProperty Name="Ppassword" ColumnName="Ppassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appointment1">
+            <EntityTypeMapping TypeName="HospitalModel.Appointment1">
+              <MappingFragment StoreEntitySet="Appointment1">
+                <ScalarProperty Name="Did" ColumnName="Did" />
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="AppointemtDate" ColumnName="AppointemtDate" />
+                <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
